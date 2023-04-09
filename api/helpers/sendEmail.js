@@ -22,7 +22,9 @@ const sendEmail = async (emailSubject, htmlContent, userEmail, res) => {
     })
     .then(
       function (data) {
-        res.status(201).json({ success: true, message: "Signup Success!" });
+        res
+          .status(201)
+          .json({ success: true, message: "Email sent successfully!" });
       },
       function (error) {
         res.status(500).json({ success: false, error });
