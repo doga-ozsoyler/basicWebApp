@@ -1,9 +1,12 @@
 const expressHandler = require("express-async-handler");
 const User = require("../models/user");
+const sendEmail = require("../helpers/sendEmail");
 
 const createUserController = expressHandler(async (req, res) => {
   try {
-    const userExists = await User.findOne({ email: req?.body?.email });
+    const { email } = req?.body;
+
+    const userExists = await User.findOne({ email: email });
 
     if (userExists) {
       return res
@@ -12,11 +15,16 @@ const createUserController = expressHandler(async (req, res) => {
     }
 
     await User.create({
-      email: req?.body?.email,
+      email: email,
       status: req?.body?.status,
     });
 
-    res.status(201).json({ success: true, message: "Signup Success!" });
+    await sendEmail(
+      "Invitation to StromaWebApp",
+      `<h2>Hello There</h2>`,
+      email,
+      res
+    );
   } catch (error) {
     res.status(500).json({ success: false, error });
   }
