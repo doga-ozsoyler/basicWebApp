@@ -7,10 +7,9 @@ export const signinAction = createAsyncThunk(
   "user/signin",
   async (email, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`${api_url}/user/signin`, {
+      const { data } = await axios.post(`${api_url}/user/signin`, {
         email: email,
       });
-      console.log(data);
 
       return data;
     } catch (error) {
