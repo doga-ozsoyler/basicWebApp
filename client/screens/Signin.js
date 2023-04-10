@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { View, Text, TextInput } from "react-native";
 import { Input, Center, Button } from "native-base";
+import { signinAction } from "../redux/slices/userReducer";
+import { useDispatch } from "react-redux";
 
 const SigninScreen = () => {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
 
   return (
@@ -13,7 +15,13 @@ const SigninScreen = () => {
         placeholder="Email"
         w="300"
       />
-      <Button margin={5} size="sm">
+      <Button
+        onPress={() => {
+          dispatch(signinAction(email));
+        }}
+        margin={5}
+        size="sm"
+      >
         Sign in
       </Button>
     </Center>
