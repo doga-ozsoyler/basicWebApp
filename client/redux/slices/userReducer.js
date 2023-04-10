@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, createAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
-api_url = "http://192.168.1.2:9000/api";
+const api_url = "http://192.168.1.2:9000/api";
 
 export const signinAction = createAsyncThunk(
   "user/signin",
@@ -18,3 +18,28 @@ export const signinAction = createAsyncThunk(
     }
   }
 );
+
+const userSlice = createSlice({
+  name: "user",
+  initialState: {
+    loading: false,
+    error: null,
+  },
+  extraReducers: (builder) => {
+    //get current user reducer
+    builder.addCase(signinAction.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(signinAction.fulfilled, (state) => {
+      state.loading = false;
+      state.error = null;
+    });
+    builder.addCase(signinAction.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action?.error;
+    });
+  },
+});
+
+export default userSlice.reducer;
