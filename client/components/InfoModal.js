@@ -14,8 +14,7 @@ const InfoModal = (props) => {
         </Modal.Body>
         <Modal.Footer>
           <Button
-            h={5}
-            variant="ghost"
+            size="sm"
             onPress={() => {
               setShowModal(false);
             }}
