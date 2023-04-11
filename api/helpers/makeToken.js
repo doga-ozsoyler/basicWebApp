@@ -4,7 +4,7 @@ require("dotenv").config();
 const makeToken = (userID) => {
   const expirationDate = new Date();
   expirationDate.setHours(new Date().getHours() + 1);
-  return jwt.sign({ _id: userID }, process.env.JWT_SECRET_KEY, {
+  return jwt.sign({ id: userID }, process.env.JWT_SECRET_KEY, {
     expiresIn: "1d",
   });
 };

@@ -1,8 +1,8 @@
-import jwt from "jsonwebtoken";
-import { User } from "../models/user";
+const jwt = require("jsonwebtoken");
+const User = require("../models/user");
 require("dotenv").config();
 
-export const verifyToken = async (req, res, next) => {
+const verifyToken = async (req, res, next) => {
   try {
     const token = req?.headers?.authorization;
     if (!token)
@@ -23,3 +23,5 @@ export const verifyToken = async (req, res, next) => {
     res.json({ success: false, error });
   }
 };
+
+module.exports = { verifyToken };
