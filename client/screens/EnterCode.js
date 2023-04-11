@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Input, Center, Button } from "native-base";
 
-const EnterCodeScreen = () => {
+const EnterCodeScreen = (props) => {
   const [code, setCode] = useState("");
+
+  console.log(props?.route?.params?.email);
 
   return (
     <Center flex={1}>

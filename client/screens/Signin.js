@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input, Center, Button } from "native-base";
+import { Center, Button } from "native-base";
 import { signinAction } from "../redux/slices/userReducer";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
@@ -35,8 +35,8 @@ const SigninScreen = () => {
       />
       <Button
         onPress={() => {
-          dispatch(signinAction(email));
-          navigation.navigate("EnterCode");
+          //dispatch(signinAction(email));
+          navigation.navigate("EnterCode", { email: email });
         }}
         margin={5}
         size="sm"
