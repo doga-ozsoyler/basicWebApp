@@ -4,6 +4,7 @@ import { signinAction } from "../redux/slices/userReducer";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import FormController from "../components/FormController";
+import { validateEmail } from "../helpers/validation";
 
 const SigninScreen = () => {
   const dispatch = useDispatch();
@@ -17,15 +18,6 @@ const SigninScreen = () => {
   const signinError = useSelector((state) => {
     return state?.user?.error;
   });
-
-  const validateEmail = (text) => {
-    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
-    if (reg.test(text) === false) {
-      return false;
-    } else {
-      return true;
-    }
-  };
 
   const handleEmailText = (text) => {
     setEmail(text);
@@ -44,7 +36,7 @@ const SigninScreen = () => {
       <Button
         onPress={() => {
           dispatch(signinAction(email));
-          //navigation.navigate("EnterCode");
+          navigation.navigate("EnterCode");
         }}
         margin={5}
         size="sm"
