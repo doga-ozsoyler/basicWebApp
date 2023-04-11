@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, createAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const api_url = "http://192.168.100.102:9000/api";
@@ -13,6 +13,7 @@ export const signinAction = createAsyncThunk(
 
       return data;
     } catch (error) {
+      console.log(error);
       return rejectWithValue({
         message: error.response.data.message,
         success: error.response.data.success,
@@ -30,6 +31,7 @@ export const checkEnterCodeAction = createAsyncThunk(
         `${api_url}/user/checkEnterCode`,
         singinData
       );
+
       return data;
     } catch (error) {
       return rejectWithValue({
@@ -46,6 +48,8 @@ const userSlice = createSlice({
   initialState: {
     loading: false,
     error: null,
+    token: null,
+    signinData: null,
   },
   extraReducers: (builder) => {
     //get current user reducer
@@ -53,11 +57,25 @@ const userSlice = createSlice({
       state.loading = true;
       state.error = null;
     });
-    builder.addCase(signinAction.fulfilled, (state) => {
+    builder.addCase(signinAction.fulfilled, (state, action) => {
       state.loading = false;
       state.error = null;
+      state.signinData = action.payload;
     });
     builder.addCase(signinAction.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    });
+    builder.addCase(checkEnterCodeAction.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(checkEnterCodeAction.fulfilled, (state, action) => {
+      state.loading = false;
+      state.error = null;
+      state.token = action.payload.token;
+    });
+    builder.addCase(checkEnterCodeAction.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
     });
