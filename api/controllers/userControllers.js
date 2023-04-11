@@ -33,7 +33,7 @@ const createUserController = expressHandler(async (req, res) => {
   }
 });
 
-const signin = expressHandler(async (req, res) => {
+const signinController = expressHandler(async (req, res) => {
   try {
     const { email } = req?.body;
 
@@ -81,6 +81,6 @@ const checkEnterCodeController = expressHandler(async (req, res) => {
 
 module.exports = {
   createUserController,
-  signin,
+  signinController,
   checkEnterCodeController,
 };
