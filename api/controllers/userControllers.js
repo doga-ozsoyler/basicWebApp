@@ -33,7 +33,7 @@ const createUserController = expressHandler(async (req, res) => {
   }
 });
 
-const signin = expressHandler(async (req, res) => {
+const signinController = expressHandler(async (req, res) => {
   try {
     const { email } = req?.body;
 
@@ -43,7 +43,6 @@ const signin = expressHandler(async (req, res) => {
       return res.status(404).json({ success: false, message: "Invalid email" });
     }
     const sixDigitsCode = Math.floor(100000 + Math.random() * 900000);
-    console.log(sixDigitsCode);
     await User.findOneAndUpdate({ email: email }, { enterCode: sixDigitsCode });
     await sendEmail(
       "Sign in to StromaWebApp",
@@ -57,7 +56,31 @@ const signin = expressHandler(async (req, res) => {
   }
 });
 
+const checkEnterCodeController = expressHandler(async (req, res) => {
+  try {
+    const { email, enterCode } = req?.body;
+
+    const user = await User.findOne({ email: email });
+
+    if (!user) {
+      return res.status(404).json({ success: false, message: "Invalid email" });
+    }
+
+    if (enterCode !== user.enterCode)
+      return res
+        .status(400)
+        .json({ success: false, message: "Code is incorrect" });
+
+    const token = makeToken();
+
+    res.status(201).json({ success: true, message: "Signin Success!", token });
+  } catch (error) {
+    res.status(500).json({ success: false, error });
+  }
+});
+
 module.exports = {
   createUserController,
-  signin,
+  signinController,
+  checkEnterCodeController,
 };

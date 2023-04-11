@@ -12,11 +12,14 @@ const SigninScreen = () => {
   const [email, setEmail] = useState("");
   const [emailValidation, setEmailValidation] = useState(true);
 
-  const singinLoading = useSelector((state) => {
+  const userLoading = useSelector((state) => {
     return state?.user?.loading;
   });
-  const signinError = useSelector((state) => {
+  const userError = useSelector((state) => {
     return state?.user?.error;
+  });
+  const signinData = useSelector((state) => {
+    return state?.user?.signinData;
   });
 
   const handleEmailText = (text) => {
@@ -25,28 +28,29 @@ const SigninScreen = () => {
   };
 
   useEffect(() => {
-    if (!signinError) {
+    if (!userError && signinData) {
       navigation.navigate("EnterCode", { email: email });
     }
-  }, [signinError]);
+  }, [userError, signinData]);
 
   return (
     <Center flex={1}>
       <FormController
         label="Enter Email"
         message={"Email is Not Correct!"}
-        errorMessageShow={!emailValidation || signinError?.status === 404}
+        errorMessageShow={!emailValidation || userError?.status === 404}
         value={email}
         onChangeText={handleEmailText}
       />
       <Button
         onPress={() => {
           dispatch(signinAction(email));
+          console.log("here");
         }}
         margin={5}
         size="sm"
         isDisabled={email === "" || !emailValidation}
-        isLoading={singinLoading}
+        isLoading={userLoading}
       >
         Sign in
       </Button>
