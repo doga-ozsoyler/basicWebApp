@@ -71,9 +71,24 @@ const checkEnterCodeController = expressHandler(async (req, res) => {
         .status(400)
         .json({ success: false, message: "Code is incorrect" });
 
-    const token = makeToken();
+    const token = makeToken(user._id);
 
     res.status(201).json({ success: true, message: "Signin Success!", token });
+  } catch (error) {
+    res.status(500).json({ success: false, error });
+  }
+});
+
+const fetchUserController = expressHandler(async (req, res) => {
+  try {
+    if (!req.user)
+      return res.json({ success: false, message: "Invalid Authentication" });
+
+    res.status(200).json({
+      success: true,
+      message: "User is successfully returned!",
+      userInfo: req?.user,
+    });
   } catch (error) {
     res.status(500).json({ success: false, error });
   }
@@ -83,4 +98,5 @@ module.exports = {
   createUserController,
   signinController,
   checkEnterCodeController,
+  fetchUserController,
 };
