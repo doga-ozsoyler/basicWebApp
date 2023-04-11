@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import AsyncStorege from "@react-native-async-storage/async-storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
 const api_url = "http://192.168.100.102:9000/api";
@@ -33,7 +33,7 @@ export const checkEnterCodeAction = createAsyncThunk(
         singinData
       );
 
-      await AsyncStorege.setItem("Token", JSON.stringify(data));
+      await AsyncStorage.setItem("Token", JSON.stringify(data));
       return data;
     } catch (error) {
       return rejectWithValue({
@@ -41,6 +41,17 @@ export const checkEnterCodeAction = createAsyncThunk(
         success: error.response.data.success,
         status: error.response.status,
       });
+    }
+  }
+);
+
+export const logoutAction = createAsyncThunk(
+  "logout",
+  async (_, { rejectWithValue }) => {
+    try {
+      await AsyncStorage.removeItem("Token");
+    } catch (error) {
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -78,6 +89,19 @@ const userSlice = createSlice({
       state.token = action.payload.token;
     });
     builder.addCase(checkEnterCodeAction.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    });
+    builder.addCase(logoutAction.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(logoutAction.fulfilled, (state, action) => {
+      state.loading = false;
+      state.error = null;
+      state.token = null;
+    });
+    builder.addCase(logoutAction.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
     });
