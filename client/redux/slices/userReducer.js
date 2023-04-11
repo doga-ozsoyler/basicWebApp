@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import AsyncStorege from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
 const api_url = "http://192.168.100.102:9000/api";
@@ -32,6 +33,7 @@ export const checkEnterCodeAction = createAsyncThunk(
         singinData
       );
 
+      await AsyncStorege.setItem("Token", JSON.stringify(data));
       return data;
     } catch (error) {
       return rejectWithValue({
