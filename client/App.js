@@ -1,17 +1,18 @@
-import { StyleSheet, View } from "react-native";
-import SigninScreen from "./screens/Signin";
+import { StyleSheet } from "react-native";
 import { NativeBaseProvider } from "native-base";
 import store from "./redux/store";
 import { Provider } from "react-redux";
+import { NavigationContainer } from "@react-navigation/native";
+import { StackNavigator } from "./navigation/Stack";
 
 export default function App() {
   return (
     <Provider store={store}>
-      <NativeBaseProvider>
-        <View style={styles.container}>
-          <SigninScreen />
-        </View>
-      </NativeBaseProvider>
+      <NavigationContainer>
+        <NativeBaseProvider>
+          <StackNavigator />
+        </NativeBaseProvider>
+      </NavigationContainer>
     </Provider>
   );
 }
