@@ -79,8 +79,24 @@ const checkEnterCodeController = expressHandler(async (req, res) => {
   }
 });
 
+const fetchUserController = expressHandler(async (req, res) => {
+  try {
+    if (!req.user)
+      return res.json({ success: false, message: "Invalid Authentication" });
+
+    res.status(200).json({
+      success: true,
+      message: "User is successfully returned!",
+      userInfo: req?.user,
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, error });
+  }
+});
+
 module.exports = {
   createUserController,
   signinController,
   checkEnterCodeController,
+  fetchUserController,
 };
