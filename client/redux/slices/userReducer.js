@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
-const api_url = "http://192.168.100.102:9000/api";
+const api_url = "http://192.168.1.2:9000/api";
 
 export const signinAction = createAsyncThunk(
   "user/signin",
@@ -45,6 +45,27 @@ export const checkEnterCodeAction = createAsyncThunk(
   }
 );
 
+export const fetchUser = createAsyncThunk(
+  "user/fetchUser",
+  async (_, { rejectWithValue, getState }) => {
+    try {
+      const state = getState();
+      const token = state.user.token;
+
+      const { data } = await axios.get(`${api_url}/user/info`, {
+        headers: {
+          authorization: token,
+        },
+      });
+
+      return data;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error);
+    }
+  }
+);
+
 export const logoutAction = createAsyncThunk(
   "logout",
   async (_, { rejectWithValue }) => {
@@ -63,6 +84,7 @@ const userSlice = createSlice({
     error: null,
     token: null,
     signinData: null,
+    userInfo: null,
   },
   extraReducers: (builder) => {
     //get current user reducer
@@ -89,6 +111,19 @@ const userSlice = createSlice({
       state.token = action.payload.token;
     });
     builder.addCase(checkEnterCodeAction.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    });
+    builder.addCase(fetchUser.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(fetchUser.fulfilled, (state, action) => {
+      state.loading = false;
+      state.error = null;
+      state.userInfo = action.payload;
+    });
+    builder.addCase(fetchUser.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
     });
