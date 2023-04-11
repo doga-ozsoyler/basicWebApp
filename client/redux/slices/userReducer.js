@@ -22,6 +22,25 @@ export const signinAction = createAsyncThunk(
   }
 );
 
+export const checkEnterCodeAction = createAsyncThunk(
+  "user/checkEnterCode",
+  async (singinData, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post(
+        `${api_url}/user/checkEnterCode`,
+        singinData
+      );
+      return data;
+    } catch (error) {
+      return rejectWithValue({
+        message: error.response.data.message,
+        success: error.response.data.success,
+        status: error.response.status,
+      });
+    }
+  }
+);
+
 const userSlice = createSlice({
   name: "user",
   initialState: {
