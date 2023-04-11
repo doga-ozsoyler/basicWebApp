@@ -15,17 +15,26 @@ const HomeScreen = () => {
     dispatch(fetchUser());
   }, []);
   return (
-    <Center flex={1} bg="#44803F">
-      <Text color="white" fontSize="5xl" bold>
+    <Center flex={1} bg="#F1E4F2">
+      <Text color="#684F8C" fontSize="5xl" bold>
         Welcome
       </Text>
       {userInfo.status === "admin" ? (
-        <Button marginTop={5}>Invite User</Button>
+        <Button
+          bg="#6F96A6"
+          _hover={{ bg: "#4D6873" }}
+          _pressed={{ bg: "#6A8F9E" }}
+          colorScheme="violet"
+          marginTop={5}
+        >
+          Invite User
+        </Button>
       ) : (
         <></>
       )}
       <Button
         variant="link"
+        colorScheme="violet"
         onPress={() => {
           dispatch(logoutAction());
         }}
