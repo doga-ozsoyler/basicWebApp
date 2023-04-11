@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Center, Button } from "native-base";
 import { signinAction } from "../redux/slices/userReducer";
 import { useNavigation } from "@react-navigation/native";
@@ -24,6 +24,12 @@ const SigninScreen = () => {
     setEmailValidation(validateEmail(text));
   };
 
+  useEffect(() => {
+    if (!signinError) {
+      navigation.navigate("EnterCode", { email: email });
+    }
+  }, [signinError]);
+
   return (
     <Center flex={1}>
       <FormController
@@ -35,12 +41,11 @@ const SigninScreen = () => {
       />
       <Button
         onPress={() => {
-          //dispatch(signinAction(email));
-          navigation.navigate("EnterCode", { email: email });
+          dispatch(signinAction(email));
         }}
         margin={5}
         size="sm"
-        isDisabled={email === ""}
+        isDisabled={email === "" || !emailValidation}
         isLoading={singinLoading}
       >
         Sign in
