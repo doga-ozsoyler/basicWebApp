@@ -13,7 +13,11 @@ export const signinAction = createAsyncThunk(
 
       return data;
     } catch (error) {
-      return rejectWithValue(error);
+      return rejectWithValue({
+        message: error.response.data.message,
+        success: error.response.data.success,
+        status: error.response.status,
+      });
     }
   }
 );
@@ -36,7 +40,7 @@ const userSlice = createSlice({
     });
     builder.addCase(signinAction.rejected, (state, action) => {
       state.loading = false;
-      state.error = action?.error;
+      state.error = action.payload;
     });
   },
 });
