@@ -1,19 +1,29 @@
-import React from "react";
-import { Button, Center, Text } from "native-base";
-import { useDispatch } from "react-redux";
-import { logoutAction } from "../redux/slices/userReducer";
-import { useNavigation } from "@react-navigation/core";
+import React, { useEffect } from "react";
+import { Button, Center, Text, Heading } from "native-base";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUser, logoutAction } from "../redux/slices/userReducer";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
-  const navigation = useNavigation();
 
+  const userInfo = useSelector((state) => {
+    return state?.user?.userInfo?.userInfo;
+  });
+  console.log(userInfo);
+
+  useEffect(() => {
+    dispatch(fetchUser());
+  }, []);
   return (
-    <Center flex={1}>
-      <Text fontSize="3xl" bold>
+    <Center flex={1} bg="#44803F">
+      <Text color="white" fontSize="5xl" bold>
         Welcome
       </Text>
-      <Button marginTop={5}>Invite User</Button>
+      {userInfo.status === "admin" ? (
+        <Button marginTop={5}>Invite User</Button>
+      ) : (
+        <></>
+      )}
       <Button
         variant="link"
         onPress={() => {
