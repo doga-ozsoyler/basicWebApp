@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, createAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const api_url = "http://192.168.1.2:9000/api";
+const api_url = "http://192.168.100.102:9000/api";
 
 export const signinAction = createAsyncThunk(
   "user/signin",
