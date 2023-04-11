@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Input, Center, Button } from "native-base";
+import { useNavigation } from "@react-navigation/native";
 
 const EnterCodeScreen = (props) => {
+  const navigation = useNavigation();
   const [code, setCode] = useState("");
 
   console.log(props?.route?.params?.email);
@@ -13,10 +15,20 @@ const EnterCodeScreen = (props) => {
         onPress={() => {
           console.log("Enter Code");
         }}
-        margin={5}
+        marginTop={5}
         size="sm"
       >
         Enter Code
+      </Button>
+      <Button
+        variant="link"
+        onPress={() => {
+          console.log("Enter Code");
+          navigation.navigate("Signin");
+        }}
+        size="sm"
+      >
+        Go Back
       </Button>
     </Center>
   );
