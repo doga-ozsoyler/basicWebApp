@@ -42,12 +42,13 @@ const signin = expressHandler(async (req, res) => {
     if (!user) {
       return res.status(404).json({ success: false, message: "Invalid email" });
     }
-
-    const token = makeToken(user);
+    const sixDigitsCode = Math.floor(100000 + Math.random() * 900000);
+    console.log(sixDigitsCode);
+    await User.findOneAndUpdate({ email: email }, { enterCode: sixDigitsCode });
     await sendEmail(
       "Sign in to StromaWebApp",
       `<h2>Hello There</h2>
-      <a href=http://localhost:9000/api/user?token=${token}>WebApp Link</a>`,
+      <p>${sixDigitsCode}</p>`,
       email,
       res
     );
