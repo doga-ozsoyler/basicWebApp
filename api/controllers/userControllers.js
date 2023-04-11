@@ -71,7 +71,7 @@ const checkEnterCodeController = expressHandler(async (req, res) => {
         .status(400)
         .json({ success: false, message: "Code is incorrect" });
 
-    const token = makeToken();
+    const token = makeToken(user._id);
 
     res.status(201).json({ success: true, message: "Signin Success!", token });
   } catch (error) {
