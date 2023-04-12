@@ -7,6 +7,9 @@ const createUserController = expressHandler(async (req, res) => {
   try {
     const { email } = req?.body;
 
+    if (!req.user)
+      return res.json({ success: false, message: "Invalid Authentication" });
+
     const userExists = await User.findOne({ email: email });
 
     if (userExists) {
