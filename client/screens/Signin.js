@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Center, Button } from "native-base";
+import { Center } from "native-base";
 import { signinAction } from "../redux/slices/userReducer";
-import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import FormController from "../components/FormController";
 import { validateEmail } from "../helpers/validation";
@@ -10,10 +9,9 @@ import EnterCodeScreen from "./EnterCode";
 
 const SigninScreen = () => {
   const dispatch = useDispatch();
-  const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [emailValidation, setEmailValidation] = useState(true);
-  const [showCodeInput, setShowCodeInpur] = useState(false);
+  const [showCodeInput, setShowCodeInput] = useState(false);
 
   const userLoading = useSelector((state) => {
     return state?.user?.loading;
@@ -32,7 +30,7 @@ const SigninScreen = () => {
 
   useEffect(() => {
     if (!userError && signinData && email !== "" && emailValidation) {
-      setShowCodeInpur(true);
+      setShowCodeInput(true);
     }
   }, [userError, signinData]);
 
@@ -54,7 +52,6 @@ const SigninScreen = () => {
           isLoading={userLoading}
           onPress={() => {
             dispatch(signinAction(email));
-            console.log("here");
           }}
           discription="Sign in"
         />
