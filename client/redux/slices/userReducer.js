@@ -154,7 +154,6 @@ const userSlice = createSlice({
     });
     builder.addCase(createUserAction.pending, (state) => {
       state.loading = true;
-      state.error = null;
     });
     builder.addCase(createUserAction.fulfilled, (state, action) => {
       state.loading = false;

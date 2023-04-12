@@ -4,6 +4,7 @@ import FormController from "./FormController";
 import { validateEmail } from "../helpers/validation";
 import { useDispatch, useSelector } from "react-redux";
 import { createUserAction } from "../redux/slices/userReducer";
+import showToast from "../hooks/showToast";
 
 const InviteModal = (props) => {
   const { showModal, setShowModal } = props;
@@ -11,6 +12,7 @@ const InviteModal = (props) => {
   const [email, setEmail] = useState("");
   const [emailValidation, setEmailValidation] = useState(true);
   const [isAdmin, setIsAdmin] = useState("standart");
+  const [show, setShow] = useState(false);
 
   const userLoading = useSelector((state) => {
     return state?.user?.loading;
@@ -18,14 +20,16 @@ const InviteModal = (props) => {
   const userError = useSelector((state) => {
     return state?.user?.error;
   });
-  const signinData = useSelector((state) => {
-    return state?.user?.signinData;
+  const createUserData = useSelector((state) => {
+    return state?.user?.createUserData;
   });
 
   const handleEmailText = (text) => {
     setEmail(text);
     setEmailValidation(validateEmail(text));
   };
+
+  showToast(createUserData, userError, show, setShow);
 
   return (
     <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
@@ -64,6 +68,7 @@ const InviteModal = (props) => {
             isLoading={userLoading}
             onPress={() => {
               dispatch(createUserAction({ email: email, status: isAdmin }));
+              setShow(true);
             }}
           >
             Create
