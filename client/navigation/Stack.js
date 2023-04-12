@@ -1,6 +1,5 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import SigninScreen from "../screens/Signin";
-import EnterCodeScreen from "../screens/EnterCode";
 import HomeScreen from "../screens/Home";
 import { useSelector } from "react-redux";
 
@@ -20,10 +19,7 @@ export const StackNavigator = () => {
       {token ? (
         <Stack.Screen name="Home" component={HomeScreen} />
       ) : (
-        <>
-          <Stack.Screen name="Signin" component={SigninScreen} />
-          <Stack.Screen name="EnterCode" component={EnterCodeScreen} />
-        </>
+        <Stack.Screen name="Signin" component={SigninScreen} />
       )}
     </Stack.Navigator>
   );

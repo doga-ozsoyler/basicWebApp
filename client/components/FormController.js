@@ -2,7 +2,8 @@ import React from "react";
 import { Box, FormControl, Input, Text } from "native-base";
 
 const FormController = (props) => {
-  const { label, message, errorMessageShow, value, onChangeText } = props;
+  const { label, message, errorMessageShow, value, onChangeText, isDisabled } =
+    props;
   return (
     <Box style={{ marginBottom: errorMessageShow ? 0 : 15 }}>
       <FormControl isInvalid={errorMessageShow}>
@@ -11,13 +12,15 @@ const FormController = (props) => {
             {label}
           </Text>
         </FormControl.Label>
-
         <Input
-          _hover={{ borderColor: "#684F8C" }}
+          borderWidth={2}
+          borderColor="#684F8C"
+          _hover={{ borderColor: "#A993BF" }}
           focusOutlineColor="#684F8C"
           value={value}
           onChangeText={onChangeText}
           placeholder={label}
+          isDisabled={isDisabled}
           w="300"
         />
         <FormControl.ErrorMessage>{message}</FormControl.ErrorMessage>

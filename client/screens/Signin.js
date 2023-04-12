@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Center, Button } from "native-base";
+import { Center } from "native-base";
 import { signinAction } from "../redux/slices/userReducer";
-import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import FormController from "../components/FormController";
 import { validateEmail } from "../helpers/validation";
+import BasicButton from "../components/BasicButton";
+import EnterCode from "../components/EnterCode";
 
 const SigninScreen = () => {
   const dispatch = useDispatch();
-  const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [emailValidation, setEmailValidation] = useState(true);
+  const [showCodeInput, setShowCodeInput] = useState(false);
 
   const userLoading = useSelector((state) => {
     return state?.user?.loading;
@@ -28,32 +29,33 @@ const SigninScreen = () => {
   };
 
   useEffect(() => {
-    if (!userError && signinData) {
-      navigation.navigate("EnterCode", { email: email });
+    if (!userError && signinData && email !== "" && emailValidation) {
+      setShowCodeInput(true);
     }
   }, [userError, signinData]);
 
   return (
-    <Center flex={1}>
+    <Center flex={1} bg="#F1E4F2">
       <FormController
         label="Enter Email"
         message={"Email is Not Correct!"}
         errorMessageShow={!emailValidation || userError?.status === 404}
         value={email}
+        isDisabled={showCodeInput}
         onChangeText={handleEmailText}
       />
-      <Button
-        onPress={() => {
-          dispatch(signinAction(email));
-          console.log("here");
-        }}
-        margin={5}
-        size="sm"
-        isDisabled={email === "" || !emailValidation}
-        isLoading={userLoading}
-      >
-        Sign in
-      </Button>
+      {showCodeInput ? (
+        <EnterCode email={email} setShowCodeInput={setShowCodeInput} />
+      ) : (
+        <BasicButton
+          isDisabled={email === "" || !emailValidation}
+          isLoading={userLoading}
+          onPress={() => {
+            dispatch(signinAction(email));
+          }}
+          discription="Sign in"
+        />
+      )}
     </Center>
   );
 };
