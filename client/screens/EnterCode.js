@@ -26,7 +26,7 @@ const EnterCodeScreen = (props) => {
   console.log(token);
 
   return (
-    <Center flex={1}>
+    <Center flex={1} bg="#F1E4F2">
       <FormController
         label="Enter Code"
         message={"Code is incorrect!"}

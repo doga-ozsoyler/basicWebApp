@@ -34,7 +34,7 @@ const SigninScreen = () => {
   }, [userError, signinData]);
 
   return (
-    <Center flex={1}>
+    <Center flex={1} bg="#F1E4F2">
       <FormController
         label="Enter Email"
         message={"Email is Not Correct!"}
