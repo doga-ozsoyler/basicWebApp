@@ -7,7 +7,6 @@ const BasicButton = (props) => {
   return (
     <Button
       bg="#6F96A6"
-      marginBottom={5}
       _hover={{ bg: "#4D6873" }}
       _pressed={{ bg: "#60818F" }}
       marginTop={5}
