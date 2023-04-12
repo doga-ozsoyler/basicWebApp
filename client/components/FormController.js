@@ -13,7 +13,9 @@ const FormController = (props) => {
         </FormControl.Label>
 
         <Input
-          _hover={{ borderColor: "#684F8C" }}
+          borderWidth={2}
+          borderColor="#684F8C"
+          _hover={{ borderColor: "#A993BF" }}
           focusOutlineColor="#684F8C"
           value={value}
           onChangeText={onChangeText}
