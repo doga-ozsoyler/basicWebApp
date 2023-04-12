@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Button, Modal, Text, Checkbox, Box } from "native-base";
+import { Modal, Text, Checkbox, Box } from "native-base";
 import FormController from "./FormController";
 import { validateEmail } from "../helpers/validation";
 import { useDispatch, useSelector } from "react-redux";
 import { createUserAction } from "../redux/slices/userReducer";
 import showToast from "../hooks/showToast";
 import LinkButton from "./LinkButton";
+import BasicButton from "./BasicButton";
 
 const InviteModal = (props) => {
   const { showModal, setShowModal } = props;
@@ -62,20 +63,15 @@ const InviteModal = (props) => {
               </Text>
             </Checkbox>
           </Box>
-          <Button
-            bg="#6F96A6"
-            _hover={{ bg: "#4D6873" }}
-            _pressed={{ bg: "#60818F" }}
-            marginTop={5}
+          <BasicButton
             isDisabled={email === "" || !emailValidation}
             isLoading={userLoading}
             onPress={() => {
               dispatch(createUserAction({ email: email, status: isAdmin }));
               setShow(true);
             }}
-          >
-            Create
-          </Button>
+            discription="Create"
+          />
           <LinkButton
             onPress={() => {
               setShowModal(false);
