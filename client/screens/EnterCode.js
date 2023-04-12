@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 import { Center, Button } from "native-base";
-import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { checkEnterCodeAction } from "../redux/slices/userReducer";
 import FormController from "../components/FormController";
 import BasicButton from "../components/BasicButton";
 
 const EnterCodeScreen = (props) => {
-  const { email } = props;
+  const { email, setShowCodeInput } = props;
   const dispatch = useDispatch();
-  const navigation = useNavigation();
   const [code, setCode] = useState("");
 
   const userLoading = useSelector((state) => {
@@ -38,14 +36,8 @@ const EnterCodeScreen = (props) => {
         }}
         discription="Enter Code"
       />
-      <Button
-        variant="link"
-        onPress={() => {
-          navigation.navigate("Signin");
-        }}
-        size="sm"
-      >
-        Go Back
+      <Button variant="link" onPress={() => setShowCodeInput(false)} size="sm">
+        Cancel
       </Button>
     </Center>
   );

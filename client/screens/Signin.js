@@ -45,7 +45,7 @@ const SigninScreen = () => {
         onChangeText={handleEmailText}
       />
       {showCodeInput ? (
-        <EnterCodeScreen email={email} />
+        <EnterCodeScreen email={email} setShowCodeInput={setShowCodeInput} />
       ) : (
         <BasicButton
           isDisabled={email === "" || !emailValidation}
