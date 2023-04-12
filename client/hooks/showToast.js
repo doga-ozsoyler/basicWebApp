@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useToast } from "native-base";
-import SuccessAlert from "../components/successAlert";
+import SuccessAlert from "../components/SuccessAlert";
 
 const showToast = (response, error, showToast, setShowToast) => {
   const toast = useToast();
