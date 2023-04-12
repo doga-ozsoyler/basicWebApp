@@ -48,6 +48,8 @@ const InviteModal = (props) => {
           />
           <Box w="80%" alignItems="flex-start">
             <Checkbox
+              colorScheme="purple"
+              _checked={{ borderColor: "#684F8C", bg: "#684F8C" }}
               alignSelf="flex-end"
               onChange={() => {
                 setIsAdmin(isAdmin === "admin" ? "standart" : "admin");
