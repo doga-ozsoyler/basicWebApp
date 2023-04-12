@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { Button, Modal, Text, Checkbox, Box } from "native-base";
+import { Modal } from "native-base";
 import FormController from "./FormController";
 import { validateEmail } from "../helpers/validation";
 import { useDispatch, useSelector } from "react-redux";
 import { createUserAction } from "../redux/slices/userReducer";
 import showToast from "../hooks/showToast";
 import LinkButton from "./LinkButton";
+import BasicButton from "./BasicButton";
+import CustomCheckbox from "./CustomCheckbox";
 
 const InviteModal = (props) => {
   const { showModal, setShowModal } = props;
@@ -47,35 +49,21 @@ const InviteModal = (props) => {
             value={email}
             onChangeText={handleEmailText}
           />
-          <Box w="80%" alignItems="flex-start">
-            <Checkbox
-              colorScheme="purple"
-              _checked={{ borderColor: "#684F8C", bg: "#684F8C" }}
-              alignSelf="flex-end"
-              onChange={() => {
-                setIsAdmin(isAdmin === "admin" ? "standart" : "admin");
-              }}
-              value="admin"
-            >
-              <Text fontSize="sm" color="dark.300">
-                Admin
-              </Text>
-            </Checkbox>
-          </Box>
-          <Button
-            bg="#6F96A6"
-            _hover={{ bg: "#4D6873" }}
-            _pressed={{ bg: "#60818F" }}
-            marginTop={5}
+          <CustomCheckbox
+            onChange={() =>
+              setIsAdmin(isAdmin === "admin" ? "standart" : "admin")
+            }
+            discription="Admin"
+          />
+          <BasicButton
             isDisabled={email === "" || !emailValidation}
             isLoading={userLoading}
             onPress={() => {
               dispatch(createUserAction({ email: email, status: isAdmin }));
               setShow(true);
             }}
-          >
-            Create
-          </Button>
+            discription="Create"
+          />
           <LinkButton
             onPress={() => {
               setShowModal(false);

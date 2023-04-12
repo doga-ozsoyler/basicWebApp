@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Button, Center, Text } from "native-base";
+import { Center, Text } from "native-base";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUser, logoutAction } from "../redux/slices/userReducer";
 import InviteModal from "../components/InviteModal";
 import LinkButton from "../components/LinkButton";
+import BasicButton from "../components/BasicButton";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -23,15 +24,10 @@ const HomeScreen = () => {
         Welcome
       </Text>
       {userInfo?.status === "admin" ? (
-        <Button
-          bg="#6F96A6"
-          _hover={{ bg: "#4D6873" }}
-          _pressed={{ bg: "#60818F" }}
-          marginTop={5}
+        <BasicButton
           onPress={() => setShowModal(true)}
-        >
-          Invite User
-        </Button>
+          discription="Invite User"
+        />
       ) : (
         <></>
       )}
