@@ -1,12 +1,26 @@
 import React, { useState } from "react";
-import { Button, Modal, Text } from "native-base";
+import { Button, Modal, Text, Checkbox, Box } from "native-base";
 import FormController from "./FormController";
 import { validateEmail } from "../helpers/validation";
+import { useDispatch, useSelector } from "react-redux";
+import { createUserAction } from "../redux/slices/userReducer";
 
 const InviteModal = (props) => {
   const { showModal, setShowModal } = props;
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [emailValidation, setEmailValidation] = useState(true);
+  const [isAdmin, setIsAdmin] = useState("standart");
+
+  const userLoading = useSelector((state) => {
+    return state?.user?.loading;
+  });
+  const userError = useSelector((state) => {
+    return state?.user?.error;
+  });
+  const signinData = useSelector((state) => {
+    return state?.user?.signinData;
+  });
 
   const handleEmailText = (text) => {
     setEmail(text);
@@ -19,21 +33,40 @@ const InviteModal = (props) => {
         <Modal.Body alignItems="center">
           <FormController
             label="Enter Email"
-            message={"Email is Not Correct!"}
-            errorMessageShow={!emailValidation}
+            message={
+              userError?.status === 404
+                ? "User already exist"
+                : "Email is Not Correct!"
+            }
+            errorMessageShow={!emailValidation || userError?.status === 404}
             value={email}
             onChangeText={handleEmailText}
           />
+          <Box w="80%" alignItems="flex-start">
+            <Checkbox
+              alignSelf="flex-end"
+              onChange={() => {
+                setIsAdmin(isAdmin === "admin" ? "standart" : "admin");
+              }}
+              value="admin"
+            >
+              <Text fontSize="sm" color="dark.300">
+                Admin
+              </Text>
+            </Checkbox>
+          </Box>
           <Button
             bg="#6F96A6"
             _hover={{ bg: "#4D6873" }}
             _pressed={{ bg: "#60818F" }}
             marginTop={5}
+            isDisabled={email === "" || !emailValidation}
+            isLoading={userLoading}
             onPress={() => {
-              setShowModal(false);
+              dispatch(createUserAction({ email: email, status: isAdmin }));
             }}
           >
-            OK
+            Create
           </Button>
           <Button
             variant="link"
