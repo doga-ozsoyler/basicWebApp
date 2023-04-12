@@ -15,16 +15,15 @@ const createUserController = expressHandler(async (req, res) => {
         .json({ success: false, message: "User already exist" });
     }
 
-    const user = await User.create({
+    await User.create({
       email: email,
       status: req?.body?.status,
     });
 
-    const token = makeToken(user);
     await sendEmail(
       "Invitation to StromaWebApp",
       `<h2>Hello There</h2>
-      <a href=http://localhost:9000/api/user?token=${token}>WebApp Link</a>`,
+      <a href=http://localhost:19006>WebApp Link</a>`,
       email,
       res
     );
