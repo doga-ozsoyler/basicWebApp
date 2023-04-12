@@ -3,6 +3,7 @@ import { Button, Center, Text } from "native-base";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUser, logoutAction } from "../redux/slices/userReducer";
 import InviteModal from "../components/InviteModal";
+import LinkButton from "../components/LinkButton";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -34,15 +35,12 @@ const HomeScreen = () => {
       ) : (
         <></>
       )}
-      <Button
-        variant="link"
-        colorScheme="violet"
+      <LinkButton
         onPress={() => {
           dispatch(logoutAction());
         }}
-      >
-        Logout
-      </Button>
+        discription="Logout"
+      />
     </Center>
   );
 };

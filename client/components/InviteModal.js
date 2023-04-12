@@ -5,6 +5,7 @@ import { validateEmail } from "../helpers/validation";
 import { useDispatch, useSelector } from "react-redux";
 import { createUserAction } from "../redux/slices/userReducer";
 import showToast from "../hooks/showToast";
+import LinkButton from "./LinkButton";
 
 const InviteModal = (props) => {
   const { showModal, setShowModal } = props;
@@ -75,17 +76,14 @@ const InviteModal = (props) => {
           >
             Create
           </Button>
-          <Button
-            variant="link"
-            colorScheme="violet"
+          <LinkButton
             onPress={() => {
               setShowModal(false);
               setEmail("");
               setEmailValidation(true);
             }}
-          >
-            Cancel
-          </Button>
+            discription="Cancel"
+          />
         </Modal.Body>
       </Modal.Content>
     </Modal>

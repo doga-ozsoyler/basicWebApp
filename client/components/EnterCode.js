@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Center, Button } from "native-base";
+import { Center } from "native-base";
 import { useDispatch, useSelector } from "react-redux";
 import { checkEnterCodeAction } from "../redux/slices/userReducer";
 import FormController from "./FormController";
 import BasicButton from "./BasicButton";
+import LinkButton from "./LinkButton";
 
 const EnterCode = (props) => {
   const { email, setShowCodeInput } = props;
@@ -36,9 +37,10 @@ const EnterCode = (props) => {
         }}
         discription="Enter Code"
       />
-      <Button variant="link" onPress={() => setShowCodeInput(false)} size="sm">
-        Cancel
-      </Button>
+      <LinkButton
+        onPress={() => setShowCodeInput(false)}
+        discription="Cancel"
+      />
     </Center>
   );
 };
