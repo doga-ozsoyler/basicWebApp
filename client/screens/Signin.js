@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import FormController from "../components/FormController";
 import { validateEmail } from "../helpers/validation";
 import BasicButton from "../components/BasicButton";
-import EnterCodeScreen from "./EnterCode";
+import EnterCode from "../components/EnterCode";
 
 const SigninScreen = () => {
   const dispatch = useDispatch();
@@ -45,7 +45,7 @@ const SigninScreen = () => {
         onChangeText={handleEmailText}
       />
       {showCodeInput ? (
-        <EnterCodeScreen email={email} setShowCodeInput={setShowCodeInput} />
+        <EnterCode email={email} setShowCodeInput={setShowCodeInput} />
       ) : (
         <BasicButton
           isDisabled={email === "" || !emailValidation}

@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { Center, Button } from "native-base";
 import { useDispatch, useSelector } from "react-redux";
 import { checkEnterCodeAction } from "../redux/slices/userReducer";
-import FormController from "../components/FormController";
-import BasicButton from "../components/BasicButton";
+import FormController from "./FormController";
+import BasicButton from "./BasicButton";
 
-const EnterCodeScreen = (props) => {
+const EnterCode = (props) => {
   const { email, setShowCodeInput } = props;
   const dispatch = useDispatch();
   const [code, setCode] = useState("");
@@ -43,4 +43,4 @@ const EnterCodeScreen = (props) => {
   );
 };
 
-export default EnterCodeScreen;
+export default EnterCode;
