@@ -73,7 +73,7 @@ export const createUserAction = createAsyncThunk(
       const state = getState();
       const token = state.user.token;
 
-      const { data } = await axios.get(`${api_url}/user/create`, userData, {
+      const { data } = await axios.post(`${api_url}/user/create`, userData, {
         headers: {
           authorization: token,
         },
