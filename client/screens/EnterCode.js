@@ -8,7 +8,7 @@ import FormController from "../components/FormController";
 const EnterCodeScreen = (props) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const { email } = props?.route?.params;
+  const { email } = props;
   const [code, setCode] = useState("");
 
   const userLoading = useSelector((state) => {
@@ -26,7 +26,7 @@ const EnterCodeScreen = (props) => {
   console.log(token);
 
   return (
-    <Center flex={1} bg="#F1E4F2">
+    <Center>
       <FormController
         label="Enter Code"
         message={"Code is incorrect!"}

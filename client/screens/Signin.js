@@ -5,12 +5,15 @@ import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import FormController from "../components/FormController";
 import { validateEmail } from "../helpers/validation";
+import BasicButton from "../components/BasicButton";
+import EnterCodeScreen from "./EnterCode";
 
 const SigninScreen = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [emailValidation, setEmailValidation] = useState(true);
+  const [showCodeInput, setShowCodeInpur] = useState(false);
 
   const userLoading = useSelector((state) => {
     return state?.user?.loading;
@@ -28,8 +31,8 @@ const SigninScreen = () => {
   };
 
   useEffect(() => {
-    if (!userError && signinData) {
-      navigation.navigate("EnterCode", { email: email });
+    if (!userError && signinData && email !== "" && emailValidation) {
+      setShowCodeInpur(true);
     }
   }, [userError, signinData]);
 
@@ -40,20 +43,22 @@ const SigninScreen = () => {
         message={"Email is Not Correct!"}
         errorMessageShow={!emailValidation || userError?.status === 404}
         value={email}
+        isDisabled={showCodeInput}
         onChangeText={handleEmailText}
       />
-      <Button
-        onPress={() => {
-          dispatch(signinAction(email));
-          console.log("here");
-        }}
-        margin={5}
-        size="sm"
-        isDisabled={email === "" || !emailValidation}
-        isLoading={userLoading}
-      >
-        Sign in
-      </Button>
+      {showCodeInput ? (
+        <EnterCodeScreen email={email} />
+      ) : (
+        <BasicButton
+          isDisabled={email === "" || !emailValidation}
+          isLoading={userLoading}
+          onPress={() => {
+            dispatch(signinAction(email));
+            console.log("here");
+          }}
+          discription="Sign in"
+        />
+      )}
     </Center>
   );
 };

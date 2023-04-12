@@ -2,7 +2,8 @@ import React from "react";
 import { Box, FormControl, Input, Text } from "native-base";
 
 const FormController = (props) => {
-  const { label, message, errorMessageShow, value, onChangeText } = props;
+  const { label, message, errorMessageShow, value, onChangeText, isDisabled } =
+    props;
   return (
     <Box style={{ marginBottom: errorMessageShow ? 0 : 15 }}>
       <FormControl isInvalid={errorMessageShow}>
@@ -11,7 +12,6 @@ const FormController = (props) => {
             {label}
           </Text>
         </FormControl.Label>
-
         <Input
           borderWidth={2}
           borderColor="#684F8C"
@@ -20,6 +20,7 @@ const FormController = (props) => {
           value={value}
           onChangeText={onChangeText}
           placeholder={label}
+          isDisabled={isDisabled}
           w="300"
         />
         <FormControl.ErrorMessage>{message}</FormControl.ErrorMessage>
