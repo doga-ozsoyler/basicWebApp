@@ -64,7 +64,7 @@ const signinController = expressHandler(async (req, res) => {
     await sendEmail(
       "Sign in to StromaWebApp",
       `<h2>Hello There</h2>
-      <p>${sixDigitsCode}</p>`,
+      <p>${sixDigitsCode}. This code is valid for 15 minutes.</p>`,
       email,
       res
     );
