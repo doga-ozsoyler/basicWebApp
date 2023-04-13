@@ -59,6 +59,43 @@ describe("POST - /api/user/create", () => {
   });
 });
 
+describe("POST - /api/user/signin", () => {
+  let testToken;
+  beforeAll(async () => {
+    await testDB.connect();
+
+    const testUserRes = await request.post("/api/testUser/makeToken").send({
+      email: "testUser@test.com",
+    });
+
+    testToken = testUserRes.body.token;
+  });
+
+  afterAll(async () => {
+    await testDB.clearDatabase();
+    await testDB.closeDatabase();
+  });
+
+  test("Should return error message, if user doesn't exist.", async () => {
+    const res = await request.post("/api/user/signin").send({
+      email: "newEmail@test.com",
+    });
+
+    expect(res.body).toEqual({ success: false, message: "Invalid email" });
+  });
+
+  test("Should return success message, if user exist.", async () => {
+    const res = await request.post("/api/user/signin").send({
+      email: "testUser@test.com",
+    });
+
+    expect(res.body).toEqual({
+      success: true,
+      message: "Email sent successfully!",
+    });
+  });
+});
+
 describe("GET - /api/user/info", () => {
   let testToken;
   beforeAll(async () => {
