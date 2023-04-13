@@ -52,7 +52,7 @@ const signinController = expressHandler(async (req, res) => {
     if (enterCode) {
       await enterCode.updateOne({
         enterCode: sixDigitsCode,
-        expireAt: new Date(new Date().valueOf() + 300),
+        expireAt: new Date(new Date().valueOf() + 900),
       });
     } else {
       const newEnterCode = await EnterCode.create({
