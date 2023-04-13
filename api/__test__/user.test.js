@@ -5,7 +5,7 @@ import makeToken from "../helpers/makeToken";
 
 const request = supertest(app);
 
-describe("POST - createUserController", () => {
+describe("POST - /api/user/create", () => {
   let testToken;
   beforeAll(async () => {
     await testDB.connect();
@@ -42,5 +42,19 @@ describe("POST - createUserController", () => {
       });
 
     expect(res.body).toEqual({ success: false, message: "User already exist" });
+  });
+
+  test("Should return success message, if user added successfuly.", async () => {
+    const res = await request
+      .post("/api/user/create")
+      .set("authorization", testToken)
+      .send({
+        email: "newEmail@test.com",
+      });
+
+    expect(res.body).toEqual({
+      success: true,
+      message: "Email sent successfully!",
+    });
   });
 });
