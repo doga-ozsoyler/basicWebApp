@@ -45,7 +45,7 @@ const signinController = expressHandler(async (req, res) => {
     if (!user) {
       return res.status(404).json({ success: false, message: "Invalid email" });
     }
-    //await User.findOneAndUpdate({ email: email }, { enterCode: sixDigitsCode });
+
     const enterCode = await EnterCode.findById(user.enterCode);
 
     const sixDigitsCode = Math.floor(100000 + Math.random() * 900000);
@@ -85,7 +85,7 @@ const checkEnterCodeController = expressHandler(async (req, res) => {
 
     const enterCodeFromDb = await EnterCode.findById(user.enterCode);
 
-    if (enterCodeFromDb.enterCode !== enterCode || !enterCodeFromDb)
+    if (!enterCodeFromDb || enterCodeFromDb.enterCode !== enterCode)
       return res
         .status(400)
         .json({ success: false, message: "Code is incorrect" });
