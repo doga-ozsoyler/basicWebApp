@@ -96,6 +96,60 @@ describe("POST - /api/user/signin", () => {
   });
 });
 
+describe("POST - /api/user/checkEnterCode", () => {
+  let testToken;
+  beforeAll(async () => {
+    await testDB.connect();
+
+    const testUserRes = await request.post("/api/testUser/makeToken").send({
+      email: "testUser@test.com",
+    });
+
+    testToken = testUserRes.body.token;
+  });
+
+  afterAll(async () => {
+    await testDB.clearDatabase();
+    await testDB.closeDatabase();
+  });
+
+  test("Should return error message, if user doesn't exist.", async () => {
+    const res = await request.post("/api/user/checkEnterCode").send({
+      email: "newEmail@test.com",
+    });
+
+    expect(res.body).toEqual({ success: false, message: "Invalid email" });
+  });
+
+  test("Should return error message, if code isn't correct.", async () => {
+    const res = await request.post("/api/user/checkEnterCode").send({
+      email: "testUser@test.com",
+      enterCode: 54785,
+    });
+
+    expect(res.body).toEqual({ success: false, message: "Code is incorrect" });
+  });
+
+  test("Should return success message, if sign in is successful.", async () => {
+    await request.post("/api/user/signin").send({
+      email: "testUser@test.com",
+    });
+
+    const enterCodeRes = await request.get("/api/testUser/getEnterCode").send({
+      email: "testUser@test.com",
+    });
+
+    const res = await request.post("/api/user/checkEnterCode").send({
+      email: "testUser@test.com",
+      enterCode: enterCodeRes.body.enterCode.enterCode,
+    });
+
+    expect(res.body).toEqual(
+      expect.objectContaining({ success: true, message: "Signin Success!" })
+    );
+  });
+});
+
 describe("GET - /api/user/info", () => {
   let testToken;
   beforeAll(async () => {
