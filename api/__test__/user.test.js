@@ -58,3 +58,46 @@ describe("POST - /api/user/create", () => {
     });
   });
 });
+
+describe("GET - /api/user/info", () => {
+  let testToken;
+  beforeAll(async () => {
+    await testDB.connect();
+
+    const testUserRes = await request.post("/api/testUser/makeToken").send({
+      email: "testUser@test.com",
+    });
+
+    testToken = testUserRes.body.token;
+  });
+
+  afterAll(async () => {
+    await testDB.clearDatabase();
+    await testDB.closeDatabase();
+  });
+
+  test("Should return error message, if authentication doesn't exist.", async () => {
+    const res = await request.get("/api/user/info");
+
+    expect(res.body).toEqual({
+      success: false,
+      message: "Invalid Authentication",
+    });
+  });
+
+  test("Should return success message, if user returned successfuly.", async () => {
+    const res = await request
+      .get("/api/user/info")
+      .set("authorization", testToken);
+
+    expect(res.body).toEqual(
+      expect.objectContaining({
+        success: true,
+        message: "User is successfully returned!",
+      })
+    );
+    expect(res.body.userInfo).toEqual(
+      expect.objectContaining({ email: "testUser@test.com" })
+    );
+  });
+});
