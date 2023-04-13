@@ -1,6 +1,7 @@
 const express = require("express");
 const dbConnect = require("./config/dbConnect");
 const userRoutes = require("./routes/userRoutes");
+const testUserRoutes = require("./routes/testRoutes");
 const cors = require("cors");
 require("dotenv").config();
 const PORT = process.env.PORT;
@@ -16,11 +17,14 @@ if (process.env.NODE_ENV !== "TEST") {
 
 app.use("/api/user", userRoutes);
 
-console.log(process.env.NODE_ENV);
+if (process.env.NODE_ENV === "TEST") {
+  app.use("/api/testUser", testUserRoutes);
+}
+
 if (process.env.NODE_ENV !== "TEST") {
   app.listen(PORT, () => {
     console.log(`Server started at ${PORT}`);
   });
 }
 
-export default app;
+module.exports = app;
