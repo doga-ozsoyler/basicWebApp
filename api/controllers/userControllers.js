@@ -1,5 +1,6 @@
 const expressHandler = require("express-async-handler");
 const User = require("../models/user");
+const EnterCode = require("../models/enterCode");
 const sendEmail = require("../helpers/sendEmail");
 const makeToken = require("../helpers/makeToken");
 
@@ -44,8 +45,22 @@ const signinController = expressHandler(async (req, res) => {
     if (!user) {
       return res.status(404).json({ success: false, message: "Invalid email" });
     }
+    //await User.findOneAndUpdate({ email: email }, { enterCode: sixDigitsCode });
+    const enterCode = await EnterCode.findById(user.enterCode);
+
     const sixDigitsCode = Math.floor(100000 + Math.random() * 900000);
-    await User.findOneAndUpdate({ email: email }, { enterCode: sixDigitsCode });
+    if (enterCode) {
+      await enterCode.updateOne({
+        enterCode: sixDigitsCode,
+        expireAt: new Date(new Date().valueOf() + 300),
+      });
+    } else {
+      const newEnterCode = await EnterCode.create({
+        enterCode: sixDigitsCode,
+      });
+      await user.updateOne({ enterCode: newEnterCode._id });
+    }
+
     await sendEmail(
       "Sign in to StromaWebApp",
       `<h2>Hello There</h2>
@@ -68,7 +83,9 @@ const checkEnterCodeController = expressHandler(async (req, res) => {
       return res.status(404).json({ success: false, message: "Invalid email" });
     }
 
-    if (enterCode !== user.enterCode)
+    const enterCodeFromDb = await EnterCode.findById(user.enterCode);
+
+    if (enterCodeFromDb.enterCode !== enterCode || !enterCodeFromDb)
       return res
         .status(400)
         .json({ success: false, message: "Code is incorrect" });
