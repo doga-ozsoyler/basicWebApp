@@ -10,10 +10,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-dbConnect();
+if (process.env.NODE_ENV !== "TEST") {
+  dbConnect();
+}
 
 app.use("/api/user", userRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Server started at ${PORT}`);
-});
+if (process.env.NODE_ENV !== "TEST") {
+  app.listen(PORT, () => {
+    console.log(`Server started at ${PORT}`);
+  });
+}
