@@ -6,4 +6,6 @@ const UserSchema = new mongoose.Schema({
   enterCode: { type: mongoose.Schema.Types.ObjectId, ref: "EnterCode" },
 });
 
-module.exports = User = mongoose.model("User", UserSchema);
+const User = mongoose.model("User", UserSchema);
+
+export { User };

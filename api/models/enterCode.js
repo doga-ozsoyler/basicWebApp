@@ -5,4 +5,6 @@ const EnterCodeSchema = new mongoose.Schema({
   expireAt: { type: Date, expires: "15m" },
 });
 
-module.exports = EnterCode = mongoose.model("EnterCode", EnterCodeSchema);
+const EnterCode = mongoose.model("EnterCode", EnterCodeSchema);
+
+export { EnterCode };

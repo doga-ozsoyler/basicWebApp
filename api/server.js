@@ -16,8 +16,11 @@ if (process.env.NODE_ENV !== "TEST") {
 
 app.use("/api/user", userRoutes);
 
+console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV !== "TEST") {
   app.listen(PORT, () => {
     console.log(`Server started at ${PORT}`);
   });
 }
+
+export default app;
