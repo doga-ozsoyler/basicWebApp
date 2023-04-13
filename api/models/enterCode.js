@@ -7,4 +7,4 @@ const EnterCodeSchema = new mongoose.Schema({
 
 const EnterCode = mongoose.model("EnterCode", EnterCodeSchema);
 
-export { EnterCode };
+module.exports = EnterCode;
