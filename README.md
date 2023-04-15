@@ -89,7 +89,7 @@ To run this project, you will need to add the following environment variables to
 | Link and Input Color | ![#684F8C](https://via.placeholder.com/10/684F8C?text=+) #684F8C |
 | Button Color         | ![#6F96A6](https://via.placeholder.com/10/6F96A6?text=+) #6F96A6 |
 
-##Screenshots
+## Screenshots
 
 #### Web
 
