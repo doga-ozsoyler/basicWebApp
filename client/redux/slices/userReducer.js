@@ -101,7 +101,7 @@ export const logoutAction = createAsyncThunk(
   }
 );
 
-const userSlice = createSlice({
+export const userSlice = createSlice({
   name: "user",
   initialState: {
     loading: false,
