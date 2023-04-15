@@ -1,4 +1,5 @@
 import React from "react";
+import { Platform } from "react-native";
 import { Box, FormControl, Input, Text } from "native-base";
 
 const FormController = (props) => {
@@ -21,7 +22,7 @@ const FormController = (props) => {
           onChangeText={onChangeText}
           placeholder={label}
           isDisabled={isDisabled}
-          w="300"
+          w={Platform.OS === "web" ? "300" : "90%"}
         />
         <FormControl.ErrorMessage>{message}</FormControl.ErrorMessage>
       </FormControl>
