@@ -84,10 +84,88 @@ To run this project, you will need to add the following environment variables to
 
 | Color                | Hex                                                              |
 | -------------------- | ---------------------------------------------------------------- |
-| Background Color     | ![#684F8C](https://via.placeholder.com/10/0a192f?text=+) #684F8C |
-| Secondary Color      | ![#A993BF](https://via.placeholder.com/10/f8f8f8?text=+) #A993BF |
-| Link and Input Color | ![#684F8C](https://via.placeholder.com/10/00b48a?text=+) #684F8C |
-| Button Color         | ![#6F96A6](https://via.placeholder.com/10/00b48a?text=+) #6F96A6 |
+| Background Color     | ![#684F8C](https://via.placeholder.com/10/F1E4F2?text=+) #F1E4F2 |
+| Secondary Color      | ![#A993BF](https://via.placeholder.com/10/A993BF?text=+) #A993BF |
+| Link and Input Color | ![#684F8C](https://via.placeholder.com/10/684F8C?text=+) #684F8C |
+| Button Color         | ![#6F96A6](https://via.placeholder.com/10/6F96A6?text=+) #6F96A6 |
+
+##Screenshots
+
+#### Web
+
+<details>
+  <summary>Sign in</summary>
+  
+  <img src="https://github.com/doga-ozsoyler/basicWebApp/blob/feature/Add_readme/client/assets/appImage/Signin.png" width="850" title="Sign in">
+  
+</details>
+
+<details>
+  <summary>Enter Code</summary>
+  
+  <img src="https://github.com/doga-ozsoyler/basicWebApp/blob/feature/Add_readme/client/assets/appImage/EnterCode.png" width="850" title="Enter Code">
+  
+</details>
+
+<details>
+  <summary>Home Page</summary>
+  
+  <img src="https://github.com/doga-ozsoyler/basicWebApp/blob/feature/Add_readme/client/assets/appImage/HomePage.png" width="850" title="Home Page">
+  
+</details>
+
+<details>
+  <summary>Enter New User</summary>
+  
+  <img src="https://github.com/doga-ozsoyler/basicWebApp/blob/feature/Add_readme/client/assets/appImage/EnterNewUser.png" width="850" title="Enter New User">
+  
+</details>
+
+#### Mobile Phone
+
+<details>
+  <summary>Sign in</summary>
+  
+  <img src="https://github.com/doga-ozsoyler/basicWebApp/blob/feature/Add_readme/client/assets/appImage/EnterMailIOS.png" width="350" title="Sign in">
+  
+</details>
+
+<details>
+  <summary>Enter Code</summary>
+  
+  <img src="https://github.com/doga-ozsoyler/basicWebApp/blob/feature/Add_readme/client/assets/appImage/EnterCodeIOS.png" width="350" title="Enter Code">
+  
+</details>
+
+<details>
+  <summary>Home Page</summary>
+  
+  <img src="https://github.com/doga-ozsoyler/basicWebApp/blob/feature/Add_readme/client/assets/appImage/HomaPageIOS.png" width="350" title="Home Page">
+  
+</details>
+
+<details>
+  <summary>Enter New User</summary>
+  
+  <img src="https://github.com/doga-ozsoyler/basicWebApp/blob/feature/Add_readme/client/assets/appImage/EnterNewUserIOS.png" width="350" title="Enter New User">
+  
+</details>
+
+#### Mail Format
+
+<details>
+  <summary>Access Code Mail</summary>
+  
+  <img src="https://github.com/doga-ozsoyler/basicWebApp/blob/feature/Add_readme/client/assets/appImage/CodeMailFormat.png" width="550" title="Access Code Mail">
+  
+</details>
+
+<details>
+  <summary>Invitation Mail</summary>
+  
+  <img src="https://github.com/doga-ozsoyler/basicWebApp/blob/feature/Add_readme/client/assets/appImage/InvitationMailFormat.png" width="550" title="Invitation Mail">
+  
+</details>
 
 ## Run Locally
 
